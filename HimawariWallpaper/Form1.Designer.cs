@@ -1,6 +1,6 @@
 ﻿namespace HimawariWallpaper
 {
-    partial class Form1
+    partial class SettingWindow
     {
         /// <summary>
         /// 필수 디자이너 변수입니다.
@@ -28,13 +28,51 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.downloadNowButton = new System.Windows.Forms.Button();
+            this.setWallpaperCheckbox = new System.Windows.Forms.CheckBox();
+            this.SuspendLayout();
+            // 
+            // downloadNowButton
+            // 
+            this.downloadNowButton.Location = new System.Drawing.Point(63, 38);
+            this.downloadNowButton.Name = "downloadNowButton";
+            this.downloadNowButton.Size = new System.Drawing.Size(136, 32);
+            this.downloadNowButton.TabIndex = 0;
+            this.downloadNowButton.Text = "지금 다운로드";
+            this.downloadNowButton.UseVisualStyleBackColor = true;
+            this.downloadNowButton.Click += new System.EventHandler(this.downloadNowButton_Click);
+            // 
+            // setWallpaperCheckbox
+            // 
+            this.setWallpaperCheckbox.AutoSize = true;
+            this.setWallpaperCheckbox.Checked = true;
+            this.setWallpaperCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.setWallpaperCheckbox.Location = new System.Drawing.Point(46, 16);
+            this.setWallpaperCheckbox.Name = "setWallpaperCheckbox";
+            this.setWallpaperCheckbox.Size = new System.Drawing.Size(168, 16);
+            this.setWallpaperCheckbox.TabIndex = 1;
+            this.setWallpaperCheckbox.Text = "다운로드 완료시 바로 적용";
+            this.setWallpaperCheckbox.UseVisualStyleBackColor = true;
+            // 
+            // SettingWindow
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "Form1";
+            this.ClientSize = new System.Drawing.Size(261, 247);
+            this.Controls.Add(this.setWallpaperCheckbox);
+            this.Controls.Add(this.downloadNowButton);
+            this.Name = "SettingWindow";
+            this.Text = "HimawariDownloader";
+            this.Load += new System.EventHandler(this.SettingWindow_Load);
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion
+
+        private System.Windows.Forms.Button downloadNowButton;
+        private System.Windows.Forms.CheckBox setWallpaperCheckbox;
     }
 }
 
