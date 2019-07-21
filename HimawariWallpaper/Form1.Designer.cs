@@ -30,6 +30,8 @@
         {
             this.downloadNowButton = new System.Windows.Forms.Button();
             this.setWallpaperCheckbox = new System.Windows.Forms.CheckBox();
+            this.progress = new System.Windows.Forms.ProgressBar();
+            this.listBox1 = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // downloadNowButton
@@ -54,11 +56,29 @@
             this.setWallpaperCheckbox.Text = "다운로드 완료시 바로 적용";
             this.setWallpaperCheckbox.UseVisualStyleBackColor = true;
             // 
+            // progress
+            // 
+            this.progress.Location = new System.Drawing.Point(12, 212);
+            this.progress.Name = "progress";
+            this.progress.Size = new System.Drawing.Size(237, 23);
+            this.progress.TabIndex = 2;
+            // 
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.ItemHeight = 12;
+            this.listBox1.Location = new System.Drawing.Point(13, 83);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(236, 112);
+            this.listBox1.TabIndex = 3;
+            // 
             // SettingWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(261, 247);
+            this.Controls.Add(this.listBox1);
+            this.Controls.Add(this.progress);
             this.Controls.Add(this.setWallpaperCheckbox);
             this.Controls.Add(this.downloadNowButton);
             this.Name = "SettingWindow";
@@ -73,6 +93,8 @@
 
         private System.Windows.Forms.Button downloadNowButton;
         private System.Windows.Forms.CheckBox setWallpaperCheckbox;
+        private System.Windows.Forms.ProgressBar progress;
+        private System.Windows.Forms.ListBox listBox1;
     }
 }
 

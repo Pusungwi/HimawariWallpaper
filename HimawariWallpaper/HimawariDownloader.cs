@@ -76,6 +76,8 @@ namespace HimawariDownloader
             MAX
         }
 
+        public Action<float> onProgressDownload = null;
+
         private readonly int CONST_INT_WIDTH = 550;
         private readonly int CONST_INT_NUM_BLOCKS = 4; //this apparently corresponds directly with the level, keep this exactly the same as level without the 'd'
         private readonly string CONST_STR_LEVEL = "4d"; //Level can be 4d, 8d, 16d, 20d 
@@ -121,6 +123,7 @@ namespace HimawariDownloader
                     if (httpStatus == HttpStatusCode.OK)
                     {
                         testResult = true;
+                        onProgressDownload?.Invoke(0.1f);
                     }
 
                     response.Close();
@@ -180,7 +183,9 @@ namespace HimawariDownloader
                         string errorMsg = string.Format("Failed! {0}", e.Message);
                     }
                 }
-            }            
+            }
+
+            onProgressDownload?.Invoke(0.5f);
 
             //이미지 코덱 지정
             ImageCodecInfo pngCodecInfo = null;
@@ -200,6 +205,7 @@ namespace HimawariDownloader
             if (pngCodecInfo != null)
             {
                 image.Save(resultFilePath, pngCodecInfo, encoderParams);
+                onProgressDownload?.Invoke(1.0f);
             }
             else
             {
