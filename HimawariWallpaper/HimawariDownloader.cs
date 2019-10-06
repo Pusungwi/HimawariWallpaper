@@ -76,7 +76,18 @@ namespace HimawariDownloader
             MAX
         }
 
-        public Action<float> onProgressDownload = null;
+        public enum eProgress
+        {
+            NONE = 0,
+            START,
+            CONNECT,
+            WRITE_IMAGE,
+            SAVE_IMAGE,
+            COMPLETE,
+            MAX,
+        }
+
+        public Action<eProgress, bool> onProgressDownload = null;
 
         private readonly int CONST_INT_WIDTH = 550;
         private readonly int CONST_INT_NUM_BLOCKS = 4; //this apparently corresponds directly with the level, keep this exactly the same as level without the 'd'
@@ -102,8 +113,9 @@ namespace HimawariDownloader
         /// <returns></returns>
         public string DownloadSATWallpaper(DateTime time, eSAType type)
         {
-            string resultFilePath = "";
+            onProgressDownload?.Invoke(eProgress.START, true);
 
+            string resultFilePath = "";
             DateTime targetTime = time.AddSeconds(-time.Second).AddMinutes(-30).AddMinutes(-(time.Minute % 10));
             string targetURL = "";
             
@@ -123,7 +135,7 @@ namespace HimawariDownloader
                     if (httpStatus == HttpStatusCode.OK)
                     {
                         testResult = true;
-                        onProgressDownload?.Invoke(0.1f);
+                        onProgressDownload?.Invoke(eProgress.CONNECT, true);
                     }
 
                     response.Close();
@@ -176,6 +188,8 @@ namespace HimawariDownloader
                             graphics.DrawImage(imgblock, i * CONST_INT_WIDTH, j * CONST_INT_WIDTH, CONST_INT_WIDTH, CONST_INT_WIDTH);
                             imgblock.Dispose();
                             response.Close();
+
+                            onProgressDownload?.Invoke(eProgress.WRITE_IMAGE, true);
                         }
                     }
                     catch (Exception e)
@@ -184,8 +198,6 @@ namespace HimawariDownloader
                     }
                 }
             }
-
-            onProgressDownload?.Invoke(0.5f);
 
             //이미지 코덱 지정
             ImageCodecInfo pngCodecInfo = null;
@@ -205,13 +217,15 @@ namespace HimawariDownloader
             if (pngCodecInfo != null)
             {
                 image.Save(resultFilePath, pngCodecInfo, encoderParams);
-                onProgressDownload?.Invoke(1.0f);
+                onProgressDownload?.Invoke(eProgress.SAVE_IMAGE, true);
             }
             else
             {
                 //실패 했으니 저장 패스 빈 값으로 처리해서 문제가 있음을 알린다
                 resultFilePath = "";
             }
+
+            onProgressDownload?.Invoke(eProgress.COMPLETE, true);
 
             return resultFilePath;
         }

@@ -12,14 +12,39 @@ namespace HimawariWallpaper
 
         private void SettingWindow_Load(object sender, EventArgs e)
         {
+            progTextBox.Text = "";
+
             progress.Minimum = 0;
             progress.Maximum = 10;
         }
 
-        private void OnProgressDownloadStatus(float value)
+        private void OnProgressDownloadStatus(HimawariDownloader.Downloader.eProgress status, bool result)
         {
-            int realValue = (int)(progress.Maximum * value);
-            progress.Increment(realValue);
+            System.Text.StringBuilder SB = new System.Text.StringBuilder();
+            SB.Append(progTextBox.Text);
+
+            switch (status)
+            {
+                case HimawariDownloader.Downloader.eProgress.CONNECT:
+                    SB.AppendLine("접속 완료");
+                    break;
+                case HimawariDownloader.Downloader.eProgress.SAVE_IMAGE:
+                    SB.AppendLine("이미지 저장 완료");
+                    break;
+                case HimawariDownloader.Downloader.eProgress.WRITE_IMAGE:
+                    SB.AppendLine("이미지 쓰기 완료");
+                    break;
+                case HimawariDownloader.Downloader.eProgress.COMPLETE:
+                    SB.AppendLine("완료!");
+                    break;
+                default:
+                    break;
+            }
+
+            progTextBox.Text = SB.ToString();
+                
+            //int realValue = (int)(progress.Maximum * value);
+            //progress.Increment(realValue);
         }
 
         private void downloadNowButton_Click(object sender, EventArgs e)
