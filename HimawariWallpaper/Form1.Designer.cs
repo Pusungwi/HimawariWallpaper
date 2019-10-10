@@ -69,6 +69,7 @@
             this.progTextBox.Multiline = true;
             this.progTextBox.Name = "progTextBox";
             this.progTextBox.ReadOnly = true;
+            this.progTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.progTextBox.Size = new System.Drawing.Size(237, 130);
             this.progTextBox.TabIndex = 4;
             // 
